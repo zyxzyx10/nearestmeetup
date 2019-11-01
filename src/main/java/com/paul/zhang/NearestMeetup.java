@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class NearestMeetup {
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		if (args == null || args.length <= 0) {
-			System.out.println("please provide an adrees at least");
+			System.out.println("please provide an address at least");
 			System.exit(-1);
 		}
 
