@@ -12,8 +12,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -73,6 +75,10 @@ public class NearestMeetup {
 		System.out.println("freeformAddress:" + freeformAddress);
 		System.out.println("lat:" + lat);
 		System.out.println("lon:" + lon);
+
+		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+			Desktop.getDesktop().browse(new URI("https://www.google.ca/maps/place/"+URLEncoder.encode(freeformAddress, "UTF-8")));
+		}
 	}
 
 	private JsonNode findPosition(String address) throws URISyntaxException, IOException {
