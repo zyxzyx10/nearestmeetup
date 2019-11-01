@@ -41,7 +41,7 @@ public class NearestMeetup {
 		URIBuilder uriBuilder = new URIBuilder("https://api.tomtom.com/search/2/nearbySearch/.json");
 		uriBuilder.
 				setParameter("countrySet", "CA").
-//				setParameter("limit", "3").
+				setParameter("limit", "2").
 				setParameter("lat", centralLat + "").
 				setParameter("lon", centralLon + "").
 				setParameter("radius", "500").
