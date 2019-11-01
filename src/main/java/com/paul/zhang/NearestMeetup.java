@@ -18,12 +18,13 @@ import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.Arrays;
 
 public class NearestMeetup {
 	private MapAPI mapAPI = new TomTom();
 
-	private void go(String[] args) throws URISyntaxException, IOException {
+	private void go(String[] args) throws URISyntaxException, IOException, ParseException {
 		{
 			if (args == null || args.length <= 0) {
 				System.out.println("please provide an address at least");
@@ -64,7 +65,7 @@ public class NearestMeetup {
 		}
 	}
 
-	public static void main(String[] args) throws URISyntaxException, IOException {
+	public static void main(String[] args) throws URISyntaxException, IOException, ParseException {
 		new NearestMeetup().go(args);
 	}
 

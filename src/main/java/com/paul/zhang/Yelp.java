@@ -2,6 +2,7 @@ package com.paul.zhang;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.util.converter.DateTimeStringConverter;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -13,10 +14,14 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class TomTom implements MapAPI {
+public class Yelp implements MapAPI {
 	@Override
-	 public JsonNode findPosition(String address) throws URISyntaxException, IOException {
+	public JsonNode findPosition(String address) throws URISyntaxException, IOException {
 		URIBuilder uriBuilder = new URIBuilder("https://api.tomtom.com/search/2/geocode/" + URLEncoder.encode(address, "UTF-8") + ".json");
 		uriBuilder.
 				setParameter("countrySet", "CA").
@@ -43,30 +48,30 @@ public class TomTom implements MapAPI {
 		return result.get("position");
 	}
 
-
 	@Override
 	public JsonNode searchAround(String alt, String lon) throws URISyntaxException, IOException {
-		URIBuilder uriBuilder = new URIBuilder("https://api.tomtom.com/search/2/nearbySearch/.json");
+
+		URIBuilder uriBuilder = new URIBuilder("https://api.yelp.com/v3/businesses/search");
 		uriBuilder.
-				setParameter("countrySet", "CA").
-				setParameter("limit", "2").
-				setParameter("lat", alt).
-				setParameter("lon", lon).
-				setParameter("radius", MEETUP_SEARCH_RADIUS).
-				setParameter("language", "en-US").
-				setParameter("idxSet", "POI").
-				setParameter("categorySet", "7315,9376,9937,9379").
-				setParameter("openingHours", "nextSevenDays").
-				setParameter("key", "vYcwID4jUHcnrY6A0OLzbl1D6SBuYrOw");
+				setParameter("latitude", alt).
+				setParameter("longitude", lon).
+				setParameter("radius", "40000").
+				setParameter("locale", "en_CA").
+				setParameter("limit", "3");
+//				setParameter("price", "1,2").
+//				setParameter("open_now", "true").
+//		    setParameter("open_at", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").parse("2019-11-1 22:30:00 PT").getTime() + "").
+//		    setParameter("categories","Food,Restaurants")
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpGet httpget = new HttpGet(uriBuilder.toString());
+		httpget.addHeader("Bearer API_KEY", "omKlh09yTSBn74cvUHpaVdE9LEaEBT-jUURyBUy_zkYJ1vQlZtBGx18kJ0lho_6NMPOX1I8tkXxzmBbFZ9BRR8VWlOlC0ciJMCQH4VQdJaZfPjInByjgIGIFkJ28XXYx");
 		CloseableHttpResponse response = httpclient.execute(httpget);
 		HttpEntity entity = response.getEntity();
 		String responseString = EntityUtils.toString(entity, "UTF-8");
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode root = objectMapper.readTree(responseString);
-		JsonNode results = root.get("results");
-		return results.get(0);
+
+		return root;
 	}
 }
