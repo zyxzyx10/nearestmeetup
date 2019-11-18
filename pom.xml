@@ -40,7 +40,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
-                            <mainClass>com.paul.zhang.DockerDemo</mainClass>
+                            <mainClass>com.paul.zhang.NearestMeetup</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

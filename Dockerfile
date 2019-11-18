@@ -11,4 +11,4 @@ ADD . /app/
 RUN ["mvn", "clean", "install"]
 
 EXPOSE 4567
-CMD ["java", "-jar", "target/nearestmeetup-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/nearestmeetup-1.0-SNAPSHOT.jar", "8567 164st surrey", "15488 101a ave surrey", "9868 whalley blvd surrey"]
