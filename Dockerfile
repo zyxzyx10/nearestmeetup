@@ -1,14 +1,14 @@
-FROM maven:latest
+FROM maven:3.6.2-jdk-8
 
 #RUN apt-get update
 #RUN apt-get install -y maven
 
-WORKDIR /Users/paul.zhang/Documents/projects/java/nearestmeetup
+WORKDIR /app
 
-ADD . /Users/paul.zhang/Documents/projects/java/nearestmeetup
-RUN ["mvn", "dependency:resolve"]
+ADD . /app/
+#RUN ["mvn", "dependency:resolve"]
 #RUN ["mvn", "verify"]
 RUN ["mvn", "clean", "install"]
 
-EXPOSE 4567
-CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "/Users/paul.zhang/Documents/projects/java/nearestmeetup/target/nearestmeetup-1.0-SNAPSHOT.jar", "/Users/paul.zhang/Documents/projects/java/nearestmeetup/target/nearestmeetup-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+#EXPOSE 4567
+CMD ["java", "-jar", "/app/target/nearestmeetup-1.0-SNAPSHOT.jar"]
